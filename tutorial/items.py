@@ -47,8 +47,7 @@ class KqShoushuDetail(Item):
     ma_zui = Field()
     shou_shu_gai_shu = Field()
     shi_ying_zheng = Field()
-    shi_ying_zheng_url = Field()
-
+    bing_fa_zheng = Field()
 
 
 

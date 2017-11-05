@@ -110,7 +110,7 @@ class TutorialPipelineKqShouShu(object):
             res = self.dbpool.runInteraction(self.insert_into_table_kq_shou_shu_detail, item)
             return item
         else:
-            raise UsageError(u'缺少对于item的类')
+            return UsageError(u'缺少对于item的类')
 
     # @staticmethod
     def insert_into_table_kq_shou_shu(self, conn, item):
@@ -125,14 +125,16 @@ class TutorialPipelineKqShouShu(object):
                                                             shou_shu_fang_shi,
                                                             ma_zui,
                                                             shou_shu_gai_shu,
-                                                            shi_ying_zheng
-                            ) values(%s,%s,%s,%s,%s,%s,%s)""",
+                                                            shi_ying_zheng,
+                                                            bing_fa_zheng                                                            
+                            ) values(%s,%s,%s,%s,%s,%s,%s,%s)""",
                          (item['name'],
                           item['bu_wei'],
                          item['ke_shi'],
                          item['shou_shu_fang_shi'],
                          item['ma_zui'],
                          item['shou_shu_gai_shu'],
-                         item['shi_ying_zheng']
+                         item['shi_ying_zheng'],
+                         item['bing_fa_zheng']
                          ))
 
