@@ -49,8 +49,8 @@ class TutorialPipeline(object):
     def insert_into_table(self, conn, item):
         conn.execute(
             'insert into zreading(title,author,pub_date,types,tags,view_counts,content) values(%s,%s,%s,%s,%s,%s,%s)', (
-            item['title'], item['author'], item['pub_date'], item['types'], item['tags'], item['view_count'],
-            item['content']))
+                item['title'], item['author'], item['pub_date'], item['types'], item['tags'], item['view_count'],
+                item['content']))
 
 
 class TutorialPipeline2(object):
@@ -65,27 +65,36 @@ class TutorialPipeline2(object):
         #     use_unicode=True,
         # )
         # self.dbpool = adbapi.ConnectionPool('MySQLdb', **dbargs)
-        pool = PooledDB(MySQLdb,5,host='127.0.0.1', )
+        self.pool = PooledDB(MySQLdb, 5, host='127.0.0.1', user='root', passwd='123456', db='crawed', port=3306,
+                             charset='utf8')
+        self.conn = self.pool.connection()
+        self.cur = self.conn.cursor()
 
     '''
     The default pipeline invoke function
     '''
 
     def process_item(self, item, spider):
-        self.dbpool.runInteraction(self.select_from_table, item)
-        self.dbpool.runInteraction(self.insert_into_table, item)
+        r = self.cur.execute("select * from dmoz where url='%s'" % item["url"])
+        r = self.cur.fetchone()
+        print u'链接是：', item["url"], u'测试结果：', r
         return item
 
-    def select_from_table(self, conn, item):
-        # print u'传入参数：',item['url']
-        conn.execute("select * from dmoz where url='%s'"%item['url'])
-        res = conn.fetchone()
-        print u'查询结果是：', res
-        return res
+        # def process_item(self, item, spider):
+        #     self.dbpool.runInteraction(self.select_from_table, item)
+        #     self.dbpool.runInteraction(self.insert_into_table, item)
+        #     return item
 
-    def insert_into_table(self, conn, item):
-        conn.execute('insert into dmoz(author_name,url,description) values(%s,%s,%s)',
-                     (str(item['name']), str(item['url']), str(item['description'])))
+        # def select_from_table(self, conn, item):
+        #     # print u'传入参数：',item['url']
+        #     conn.execute("select * from dmoz where url='%s'" % item['url'])
+        #     res = conn.fetchone()
+        #     print u'查询结果是：', res
+        #     return res
+        #
+        # def insert_into_table(self, conn, item):
+        #     conn.execute('insert into dmoz(author_name,url,description) values(%s,%s,%s)',
+        #                  (str(item['name']), str(item['url']), str(item['description'])))
 
 
 class TutorialPipelineKqShouShu(object):
