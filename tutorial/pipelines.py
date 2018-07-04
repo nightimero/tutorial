@@ -75,9 +75,11 @@ class TutorialPipeline2(object):
     '''
 
     def process_item(self, item, spider):
-        r = self.cur.execute("select * from dmoz where url='%s'" % item["url"])
-        r = self.cur.fetchone()
-        print u'链接是：', item["url"], u'测试结果：', r
+        # r = self.cur.execute("select * from dmoz where url='%s'" % item["url"])
+        # r = self.cur.fetchone()
+        # print u'链接是：', item["url"], u'测试结果：', r
+        self.cur.execute("insert into dmoz(author_name,url,description) values(%s,%s,%s)",
+                         (item['name'], item['url'], item['description']))
         return item
 
         # def process_item(self, item, spider):
