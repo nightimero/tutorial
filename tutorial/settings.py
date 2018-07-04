@@ -68,8 +68,8 @@ ITEM_PIPELINES = {
    # 'tutorial.pipelines.FilterWordsPipeline': 300,
    # 'tutorial.pipelines.WebcrawlerScrapyPipeline': 300,  # 保存到mysql数据库
    # 'tutorial.pipelines.TutorialPipeline': 300,
-   # 'tutorial.pipelines.TutorialPipeline2': 300,
-   'tutorial.pipelines.TutorialPipelineKqShouShu': 300,
+   'tutorial.pipelines.TutorialPipeline2': 300,
+   # 'tutorial.pipelines.TutorialPipelineKqShouShu': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

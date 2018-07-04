@@ -24,6 +24,7 @@ class DmozSpider(Spider):
             item = DmozItem()
             item['name'] = site.xpath('div/a/div[@class="site-title"]/text()').extract()[0]
             item['url'] = site.xpath('div[@class="title-and-desc"]/a/@href').extract()[0]
-            item['description'] = site.xpath('div/div[@class="site-descr "]/text()').extract()[0]
+            item['description'] = site.xpath('div/div[@class="site-descr "]/text()').extract()[0].strip()
+            print item
             items.append(item)
         return items
